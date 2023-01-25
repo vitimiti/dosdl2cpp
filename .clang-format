@@ -1,0 +1,64 @@
+# ==============================================================================
+# Copyright (c) 2023 Victor Matia <vmatir@gmail.com>
+#
+# This software is provided 'as-is', without any express or implied warranty.
+# In no event will the authors be held liable for any damages arising from the
+# use of this software.
+#
+# Permission is granted to anyone to use this software for any purpose,
+# including commercial applications, and to alter it and redistribute it
+# freely, subject to the following restrictions:
+#
+# 1. The origin of this software must not be misrepresented; you must not claim
+#    that you wrote the original software. If you use this software in a
+#    product, an acknowledgment in the product documentation would be
+#    appreciated but is not required.
+# 2. Altered source versions must be plainly marked as such, and must not be
+#    misrepresented as being the original software.
+# 3. This notice may not be removed or altered from any source distribution.
+# ==============================================================================
+
+BasedOnStyle: LLVM
+
+IndentWidth: 2
+ColumnLimit: 80
+AlignConsecutiveAssignments: Consecutive
+AlignConsecutiveBitFields: Consecutive
+AlignConsecutiveDeclarations: Consecutive
+AlignConsecutiveMacros: Consecutive
+AlignTrailingComments: true
+AlwaysBreakTemplateDeclarations: Yes
+IndentPPDirectives: AfterHash
+PointerAlignment: Left
+ReferenceAlignment: Left
+QualifierAlignment: Right
+
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^<SDL'
+    Priority: 2
+    SortPriority: 2
+    CaseSensitive: true
+  - Regex: '^<dosdl2cpp/detail'
+    Priority: 3
+    SortPriority: 4
+  - Regex: '^<dosdl2cpp'
+    Priority: 3
+    SortPriority: 3
+    CaseSensitive: true
+  - Regex: '^"dosdl2cpp/detail'
+    Priority: 4
+    SortPriority: 5
+    CaseSensitive: true
+  - Regex: '^"dosdl2cpp'
+    Priority: 4
+    SortPriority: 4
+    CaseSensitive: true
+  - Regex: '^"'
+    Priority: 5
+    SortPriority: 5
+    CaseSensitive: true
+  - Regex: '^<'
+    Priority: 1
+    SortPriority: 1
+    CaseSensitive: true
