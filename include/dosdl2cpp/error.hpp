@@ -39,15 +39,15 @@ auto set(std::string_view const& fmt, Args... args) -> std::int32_t {
 auto get() -> std::string_view { return {SDL_GetError()}; }
 
 #if SDL_VERSION_ATLEAST(2, 0, 14)
-template <std::size_t ArraySize>
-auto get_msg(std::array<char, ArraySize>& buffer)
-    -> std::array<char, ArraySize> {
+template <std::size_t BufferSize>
+auto get_msg(std::array<char, BufferSize>& buffer)
+    -> std::array<char, BufferSize> {
   auto* c_buffer = buffer.data();
   auto* c_buffer_out =
-      SDL_GetErrorMsg(c_buffer, static_cast<std::int32_t>(ArraySize));
+      SDL_GetErrorMsg(c_buffer, static_cast<std::int32_t>(BufferSize));
 
-  std::array<char, ArraySize> buffer_out{};
-  for (std::size_t i = 0; i < ArraySize; i++) {
+  std::array<char, BufferSize> buffer_out{};
+  for (std::size_t i = 0; i < BufferSize; i++) {
     buffer[i]     = c_buffer[i];
     buffer_out[i] = c_buffer_out[i];
   }
@@ -109,13 +109,13 @@ auto clear() -> void { SDL_ClearError(); }
 /// The returned string is internally allocated and must not be freed by the
 /// application.
 
-/// @fn auto dosdl2cpp::error::get_msg(std::array<char, ArraySize>& buffer) ->
-/// std::array<char, ArraySize>
+/// @fn auto dosdl2cpp::error::get_msg(std::array<char, BufferSize>& buffer) ->
+/// std::array<char, BufferSize>
 /// @brief Get the last error message that was set for the current thread.
-/// @tparam ArraySize An std::size_t with the size of the buffer array.
-/// @param buffer A std::array<char,ArraySize> with the buffer to put the error
+/// @tparam BufferSize An std::size_t with the size of the buffer array.
+/// @param buffer A std::array<char,BufferSize> with the buffer to put the error
 /// message into.
-/// @returns A std::array<char,ArraySize> with the passed in buffer message.
+/// @returns A std::array<char,BufferSize> with the passed in buffer message.
 /// @sa dosdl2cpp::error::get()
 /// @since SDL v2.0.14.
 ///
