@@ -28,7 +28,7 @@ AlignConsecutiveDeclarations: Consecutive
 AlignConsecutiveMacros: Consecutive
 AlignTrailingComments: true
 AlwaysBreakTemplateDeclarations: Yes
-IndentPPDirectives: AfterHash
+IndentPPDirectives: None
 PointerAlignment: Left
 ReferenceAlignment: Left
 QualifierAlignment: Right

@@ -1,0 +1,39 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 24
+    },
+    "configurePresets": [
+        {
+            "name": "common-config",
+            "displayName": "Common Configuration - Do not use",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": {
+                    "type": "BOOL",
+                    "value": "ON"
+                }
+            }
+        },
+        {
+            "name": "debug-common-config",
+            "displayName": "Debug Common Configuration",
+            "inherits": "common-config",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": {
+                    "type": "STRING",
+                    "value": "Debug"
+                }
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "debug-common-build",
+            "displayName": "Debug Common Build",
+            "configurePreset": "debug-common-config"
+        }
+    ]
+}
