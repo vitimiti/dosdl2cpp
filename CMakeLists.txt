@@ -30,6 +30,9 @@ project(
 option(${PROJECT_NAME}_BUILD_API_DOCS
        "Whether to configure and build the API docs" ${PROJECT_IS_TOP_LEVEL})
 
+option(${PROJECT_NAME}_BUILD_EXAMPLES
+       "Whether to configure and build the examples" ${PROJECT_IS_TOP_LEVEL})
+
 if(NOT SDL2_FOUND)
   find_package(SDL2 REQUIRED)
 endif()
@@ -43,15 +46,20 @@ endif()
 
 add_library(${PROJECT_NAME} INTERFACE)
 target_sources(
-  ${PROJECT_NAME} INTERFACE FILE_SET HEADERS FILES
-                            ${PROJECT_SOURCE_DIR}/include/dosdl2cpp/error.hpp)
+  ${PROJECT_NAME}
+  INTERFACE FILE_SET
+            HEADERS
+            FILES
+            ${PROJECT_SOURCE_DIR}/include/dosdl2cpp/error.hpp
+            # Include everything in one single header for PCH setups.
+            ${PROJECT_SOURCE_DIR}/include/pch.hpp)
 
 target_precompile_headers(
   ${PROJECT_NAME}
   INTERFACE
+  <array>
   <cstddef>
   <cstdio>
-  <ranges>
   <string_view>
   <SDL.h>)
 
@@ -200,4 +208,8 @@ target_compile_options(
 
 if(${PROJECT_NAME}_BUILD_API_DOCS)
   add_subdirectory(${PROJECT_SOURCE_DIR}/docs)
+endif()
+
+if(${PROJECT_NAME}_BUILD_EXAMPLES)
+  add_subdirectory(${PROJECT_SOURCE_DIR}/examples)
 endif()

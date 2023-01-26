@@ -23,9 +23,9 @@
 #ifndef DO_SDL2_CPP_ERROR_HPP
 #define DO_SDL2_CPP_ERROR_HPP
 
+#include <array>
 #include <cstddef>
 #include <cstdio>
-#include <ranges>
 #include <string_view>
 
 #include <SDL.h>
@@ -33,7 +33,7 @@
 namespace dosdl2cpp::error {
 template <typename... Args>
 auto set(std::string_view const& fmt, Args... args) -> std::int32_t {
-  return SDL_SetError(fmt.data(), args);
+  return SDL_SetError(fmt.data(), args...);
 }
 
 auto get() -> std::string_view { return {SDL_GetError()}; }
@@ -46,12 +46,11 @@ auto get_msg(std::array<char, ArraySize>& buffer)
   auto* c_buffer_out =
       SDL_GetErrorMsg(c_buffer, static_cast<std::int32_t>(ArraySize));
 
-  std::ranges::copy(std::ranges::begin(c_buffer), std::ranges::end(c_buffer),
-                    buffer.begin());
-
   std::array<char, ArraySize> buffer_out{};
-  std::ranges::copy(std::ranges::begin(c_buffer_out),
-                    std::ranges::end(c_buffer_out), buffer_out.begin());
+  for (std::size_t i = 0; i < ArraySize; i++) {
+    buffer[i]     = c_buffer[i];
+    buffer_out[i] = c_buffer_out[i];
+  }
 
   return buffer_out;
 }
