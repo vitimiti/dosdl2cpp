@@ -23,6 +23,7 @@
 cmake_minimum_required(VERSION 3.24)
 project(
   DO_SDL2_CPP
+  VERSION 0.0.1.0
   DESCRIPTION "A Data-Oriented, modern C++ SDL2 wrapper."
   HOMEPAGE_URL "https://github.com/vitimiti/dosdl2cpp"
   LANGUAGES CXX)
